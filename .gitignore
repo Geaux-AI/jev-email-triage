@@ -1,0 +1,6 @@
+.env
+node_modules
+last-run.json
+emails.gmail.json
+last-run.*.json
+.claude/

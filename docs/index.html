@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev Email Triage</title>
+<style>
+  :root {
+    --bg: #f6f6f3; --grid: #e6e6e1; --card: #ffffff; --line: #ececea; --text: #1d1d1b; --muted: #8b8b86;
+    --green: #1f7a4d; --green-hi: #23905a; --high-bg: #fdf0dc; --high: #b26a00; --norm-bg: #e8f0fb; --norm: #3a65a8;
+    --low-bg: #f1f1ee; --low: #77776f; --bar: #c9c9c3; --bar-hot: #c2552d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--text); background-color: var(--bg);
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+    font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1440px; margin: 40px auto; padding: 0 16px; }
+  header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+  header h1 { font-size: 18px; margin: 0; }
+  header .sub { color: var(--muted); }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; background: var(--high-bg); color: var(--high); }
+  .badge.live { background: #e3f3ea; color: var(--green); }
+  .app { display: grid; grid-template-columns: 1fr 400px; background: var(--card); border: 1px solid #d9d9d4; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,.06); overflow: hidden; }
+  .table-wrap { max-height: 78vh; overflow: auto; border-right: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; }
+  th { position: sticky; top: 0; background: var(--card); text-align: left; font-weight: 500; color: var(--muted); font-size: 11px; padding: 10px 10px; border-bottom: 1px solid var(--line); z-index: 1; }
+  td { padding: 10px 10px; border-bottom: 1px solid #f4f4f2; white-space: nowrap; }
+  tr { cursor: pointer; }
+  tr:hover td { background: #fafaf8; }
+  tr.sel td { background: #f3f7f4; }
+  .from { color: var(--muted); max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+  .from::before { content: "•"; margin-right: 6px; }
+  .subj { font-weight: 500; max-width: 520px; overflow: hidden; text-overflow: ellipsis; }
+  .pend { color: #c6c6c0; }
+  .pill { font-size: 11px; padding: 2px 7px; border-radius: 4px; }
+  .pill.High { background: var(--high-bg); color: var(--high); }
+  .pill.Normal { background: var(--norm-bg); color: var(--norm); }
+  .pill.Low { background: var(--low-bg); color: var(--low); }
+  .pct { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .pct i { display: inline-block; width: 3px; background: var(--bar); border-radius: 1px; }
+  .pct.hot i { background: var(--bar-hot); }
+  .pct.hot { color: var(--bar-hot); }
+  .ms { color: var(--muted); font-variant-numeric: tabular-nums; }
+  tr.flash td { animation: flash .8s ease-out; }
+  @keyframes flash { from { background: #e6f4ec; } to { background: transparent; } }
+
+  .panel { padding: 18px; display: flex; flex-direction: column; gap: 22px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .h { font-weight: 600; }
+  .lbl { color: var(--muted); font-size: 11px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  select { width: 100%; margin-top: 4px; padding: 6px 8px; border: 1px solid #dcdcd6; border-radius: 4px; background: #fff; font: inherit; }
+  button.start { width: 100%; display: flex; justify-content: space-between; padding: 9px 12px; border: 0; border-radius: 4px; background: var(--green); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+  button.start:hover { background: var(--green-hi); }
+  button.start:disabled { opacity: .55; cursor: default; }
+  .links { display: flex; justify-content: space-between; margin-top: 6px; }
+  .links a { color: var(--muted); font-size: 11px; cursor: pointer; text-decoration: none; }
+  .links a:hover { color: var(--text); }
+  .big { font-size: 15px; font-variant-numeric: tabular-nums; }
+  .bar { height: 3px; background: #ededea; border-radius: 2px; overflow: hidden; margin: 8px 0 4px; }
+  .bar > div { height: 100%; width: 0; background: var(--green); transition: width .2s; }
+  .val { font-variant-numeric: tabular-nums; margin-top: 2px; }
+  svg.spark { width: 100%; height: 44px; display: block; }
+  pre { margin: 0; background: #f7f7f5; border: 1px solid var(--line); border-radius: 4px; padding: 10px; font-size: 11px; max-height: 260px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+  .err { color: #b3261e; font-size: 12px; }
+
+  @media (max-width: 900px) {
+    .app { grid-template-columns: 1fr; }
+    .table-wrap { border-right: 0; border-bottom: 1px solid var(--line); max-height: 60vh; }
+    .wrap { margin: 16px auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Inbox triage with Jev</h1>
+    <span class="sub">One classifier call per email: category, priority, spam, needs reply</span>
+    <span id="mode" class="badge">loading</span>
+  </header>
+
+  <div class="app">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Email</th><th></th><th>Category</th><th>Priority</th><th>Spam</th><th>Reply</th><th>Time</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <aside class="panel">
+      <div>
+        <div class="row"><span class="h">Run</span><span class="lbl" id="status">Ready</span></div>
+        <div class="grid2" style="margin-top:10px">
+          <label class="lbl">Emails
+            <select id="count"><option value="10">10</option><option value="100">100</option><option value="500">500</option><option value="all" selected>All</option></select>
+          </label>
+          <label class="lbl">Workers
+            <select id="workers"><option>1</option><option>4</option><option>16</option><option selected>64</option></select>
+          </label>
+        </div>
+        <button class="start" id="start" style="margin-top:12px" disabled><span>Start</span><span>→</span></button>
+        <div class="links"><a id="newrun">New run</a><a id="reset">Reset results</a></div>
+      </div>
+
+      <div>
+        <div class="row"><span class="h">Progress</span><span class="lbl" id="pctDone">0.00%</span></div>
+        <div class="big" id="doneOf">0 <span class="lbl">of 0</span></div>
+        <div class="bar"><div id="bar"></div></div>
+        <div class="row"><span class="lbl" id="remaining">0 remaining</span><span class="lbl" id="failedTop">0 failed</span></div>
+      </div>
+
+      <div>
+        <div class="grid4">
+          <div><div class="lbl">Run</div><div class="val" id="sRun">·</div></div>
+          <div><div class="lbl">Average</div><div class="val" id="sAvg">·</div></div>
+          <div><div class="lbl">Per second</div><div class="val" id="sRate">·</div></div>
+          <div><div class="lbl">p95</div><div class="val" id="sP95">·</div></div>
+        </div>
+        <div class="lbl" style="margin-top:14px">Latency</div>
+        <svg class="spark" id="spark" viewBox="0 0 360 44" preserveAspectRatio="none"></svg>
+        <div class="grid3" style="margin-top:6px">
+          <span class="lbl" id="inflight">0 in flight</span>
+          <span class="lbl" id="retries" style="text-align:center">0 API retries</span>
+          <span class="lbl" id="failed" style="text-align:right">0 failed</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="h">Tokens</div>
+        <div class="grid3" style="margin-top:8px">
+          <div><div class="lbl">In</div><div class="val" id="tIn">0</div></div>
+          <div><div class="lbl">Out</div><div class="val" id="tOut">0</div></div>
+          <div><div class="lbl">Est. cost</div><div class="val" id="cost">$0.00000</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="row"><span class="h">Selected email</span><span class="lbl">click a row</span></div>
+        <pre id="detail" style="margin-top:8px">Pick an email to see exactly what goes to Jev and what comes back.</pre>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="mock.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+let cfg, emails = [], results = {}, running = false, stopFlag = false;
+let stats;
+
+function freshStats() {
+  return { done: 0, failed: 0, inflight: 0, retries: 0, tin: 0, tout: 0, lat: [], t0: 0, t1: 0, total: 0 };
+}
+
+// Three modes: "server" (node server.js, live or mock), and on a static host like GitHub Pages
+// either "replay" (replays a recorded real Jev run from replay.json) or "mock" (runs in the browser).
+let mode = "server", replay = null;
+
+async function getJson(url) {
+  try {
+    const r = await fetch(url);
+    return r.ok ? await r.json() : null;
+  } catch { return null; }
+}
+
+async function init() {
+  cfg = await getJson("/api/config");
+  if (cfg) {
+    emails = await getJson("/api/emails");
+    results = await getJson("/api/results");
+    $("mode").textContent = cfg.mock ? "Mock mode (no API key)" : `Live · ${cfg.model}`;
+    $("mode").className = "badge" + (cfg.mock ? "" : " live");
+  } else {
+    emails = await getJson("emails.json");
+    replay = await getJson("replay.json");
+    mode = replay ? "replay" : "mock";
+    results = {};
+    if (replay) {
+      cfg = { priceIn: replay.priceIn, priceOut: replay.priceOut };
+      replay.timeline.forEach((t) => (results[t.id] = t.result));
+      $("workers").innerHTML = `<option>${replay.workers}</option>`;
+      $("count").innerHTML = `<option value="all">All</option>`;
+      $("workers").disabled = $("count").disabled = true;
+      const when = new Date(replay.recorded_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+      $("mode").textContent = `Replay of a real Jev run · ${replay.model} · recorded ${when}`;
+      $("mode").className = "badge live";
+    } else {
+      cfg = { priceIn: 0.38, priceOut: 0.38 };
+      emails.forEach((e) => (results[e.id] = { ...JevMock.mockAnswer(e), latency_ms: Math.round(JevMock.mockLatency()) }));
+      $("mode").textContent = "Mock mode (not real Jev answers)";
+    }
+  }
+  if (Object.keys(results).length) $("status").textContent = "Showing last run";
+  document.querySelector("header .sub").textContent = `${emails.length.toLocaleString()} emails · one classifier call each: category, priority, spam, needs reply`;
+  stats = freshStats();
+  render();
+  renderStats();
+  $("start").disabled = false;
+}
+
+function pct(p) {
+  const v = Math.round(p * 100);
+  const h = Math.max(3, Math.round(p * 14));
+  return `<span class="pct${p >= 0.5 ? " hot" : ""}"><i style="height:${h}px"></i>${v}%</span>`;
+}
+
+function priorityLabel(ans) {
+  const levels = ["Low", "Normal", "High"];
+  return levels[Math.max(0, Math.min(2, Math.round(ans.score)))];
+}
+
+function rowHtml(e) {
+  const r = results[e.id];
+  if (!r) return `<td class="from">${esc(e.from)}</td><td class="subj">${esc(e.subject)}</td><td class="pend">·</td><td class="pend">·</td><td class="pend">·</td><td class="pend">·</td><td class="pend">·</td>`;
+  if (r.error) return `<td class="from">${esc(e.from)}</td><td class="subj">${esc(e.subject)}</td><td colspan="5" class="err">${esc(r.error.slice(0, 80))}</td>`;
+  const a = r.answers;
+  const pr = priorityLabel(a.priority);
+  return `<td class="from">${esc(e.from)}</td><td class="subj">${esc(e.subject)}</td><td>${esc(a.category.choice)}</td>` +
+    `<td><span class="pill ${pr}">${pr}</span></td><td>${pct(a.spam.noul)}</td><td>${pct(a.reply.noul)}</td><td class="ms">${r.latency_ms} ms</td>`;
+}
+
+let rowEls = {}, emailById = {};
+function render() {
+  $("rows").innerHTML = emails.map((e) => `<tr data-id="${e.id}">${rowHtml(e)}</tr>`).join("");
+  rowEls = {}; emailById = {};
+  emails.forEach((e) => (emailById[e.id] = e));
+  $("rows").querySelectorAll("tr").forEach((tr) => (rowEls[tr.dataset.id] = tr));
+}
+
+// Rows are redrawn in batches (see flushRows) so drawing 1,700 rows never slows the run itself.
+const dirty = new Set();
+function updateRow(id) {
+  dirty.add(id);
+}
+function flushRows() {
+  if (!dirty.size) return;
+  const trs = [...dirty].map((id) => {
+    const tr = rowEls[id];
+    tr.innerHTML = rowHtml(emailById[id]);
+    tr.classList.remove("flash");
+    return tr;
+  });
+  dirty.clear();
+  void document.body.offsetWidth;
+  trs.forEach((tr) => tr.classList.add("flash"));
+}
+
+function renderStats() {
+  flushRows();
+  const s = stats;
+  const total = s.total || selectedEmails().length;
+  const p = total ? (s.done + s.failed) / total : 0;
+  $("pctDone").textContent = (p * 100).toFixed(2) + "%";
+  $("doneOf").innerHTML = `${s.done} <span class="lbl">of ${total.toLocaleString()}</span>`;
+  $("bar").style.width = p * 100 + "%";
+  $("remaining").textContent = `${(total - s.done - s.failed).toLocaleString()} remaining`;
+  $("failedTop").textContent = $("failed").textContent = `${s.failed} failed`;
+  $("inflight").textContent = `${s.inflight} in flight`;
+  $("retries").textContent = `${s.retries} API retries`;
+  const elapsed = s.t0 ? ((s.t1 || performance.now()) - s.t0) / 1000 : 0;
+  $("sRun").textContent = s.t0 ? elapsed.toFixed(1) + " s" : "·";
+  const sorted = [...s.lat].sort((a, b) => a - b);
+  $("sAvg").textContent = sorted.length ? Math.round(sorted.reduce((a, b) => a + b, 0) / sorted.length) + " ms" : "·";
+  $("sP95").textContent = sorted.length ? sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95))] + " ms" : "·";
+  $("sRate").textContent = elapsed > 0 && s.done ? (s.done / elapsed).toFixed(1) : "·";
+  $("tIn").textContent = s.tin.toLocaleString();
+  $("tOut").textContent = s.tout.toLocaleString();
+  $("cost").textContent = "$" + ((s.tin * cfg.priceIn + s.tout * cfg.priceOut) / 1e6).toFixed(5);
+  spark(s.lat);
+}
+
+function spark(lat) {
+  const svg = $("spark");
+  if (!lat.length) { svg.innerHTML = ""; return; }
+  // Group into at most 120 bars (average of each group) so big runs stay cheap to draw.
+  const groups = Math.min(120, lat.length), size = lat.length / groups;
+  lat = Array.from({ length: groups }, (_, g) => {
+    const part = lat.slice(Math.floor(g * size), Math.floor((g + 1) * size));
+    return part.reduce((x, y) => x + y, 0) / part.length;
+  });
+  const max = Math.max(...lat), n = lat.length;
+  const w = 360 / Math.max(n, 1);
+  svg.innerHTML = lat.map((v, i) => {
+    const h = Math.max(2, (v / max) * 42);
+    return `<rect x="${i * w}" y="${44 - h}" width="${Math.max(1, w - 1)}" height="${h}" fill="#1f7a4d" opacity=".55"/>`;
+  }).join("");
+}
+
+function selectedEmails() {
+  const c = $("count").value;
+  return c === "all" ? emails : emails.slice(0, Number(c));
+}
+
+let source = null;
+
+async function run() {
+  if (running) { stopFlag = true; if (source) source.close(); timers.forEach((t) => { clearTimeout(t); clearInterval(t); }); timers = []; finish(); return; }
+  let queue = selectedEmails().filter((e) => !results[e.id] || results[e.id].error);
+  // Everything already classified: rerun the whole selection live, like the video.
+  if (!queue.length) {
+    queue = selectedEmails();
+    queue.forEach((e) => delete results[e.id]);
+    render();
+  }
+  running = true; stopFlag = false;
+  stats = { ...freshStats(), total: selectedEmails().length, done: selectedEmails().length - queue.length, t0: performance.now() };
+  $("start").firstElementChild.textContent = "Stop";
+  $("status").textContent = "Running";
+  tick = setInterval(renderStats, 100);
+
+  if (mode === "replay") return replayRun(queue);
+  if (mode === "mock") return browserMockRun(queue);
+  // The server runs the worker pool and streams each answer back.
+  source = new EventSource(`/api/run?workers=${$("workers").value}&ids=${queue.map((e) => e.id).join(",")}`);
+  source.onmessage = (ev) => onEvent(JSON.parse(ev.data));
+  source.onerror = () => { source.close(); finish(); };
+}
+
+function onEvent(m) {
+    if (m.type === "start") stats.inflight++;
+    if (m.type === "result") {
+      const data = m.result;
+      results[m.id] = data;
+      stats.inflight--;
+      stats.done++;
+      stats.retries += data.retries || 0;
+      stats.tin += data.usage?.input_tokens || 0;
+      stats.tout += data.usage?.output_tokens || 0;
+      stats.lat.push(data.latency_ms);
+      updateRow(m.id);
+    }
+    if (m.type === "error") {
+      results[m.id] = { error: m.error };
+      stats.inflight--;
+      stats.failed++;
+      updateRow(m.id);
+    }
+    if (m.type === "done") { if (source) source.close(); finish(); }
+}
+
+// Replays the recorded run with its real timings: each email starts and finishes when it did live.
+// One clock loop that catches up on elapsed time, so throttled timers never stretch the run.
+let timers = [];
+function replayRun(queue) {
+  const ids = new Set(queue.map((e) => e.id));
+  const items = replay.timeline.filter((t) => ids.has(t.id));
+  const starts = [...items].sort((x, y) => x.start - y.start);
+  const ends = [...items].sort((x, y) => x.end - y.end);
+  let si = 0, ei = 0;
+  const t0 = performance.now();
+  const loop = setInterval(() => {
+    const now = performance.now() - t0;
+    while (si < starts.length && starts[si].start <= now) onEvent({ type: "start", id: starts[si++].id });
+    while (ei < ends.length && ends[ei].end <= now) {
+      const t = ends[ei++];
+      onEvent({ type: "result", id: t.id, result: t.result });
+    }
+    if (ei === ends.length) { clearInterval(loop); stats.t0 = t0; stats.t1 = t0 + ends[ends.length - 1].end; onEvent({ type: "done" }); }
+  }, 25);
+  timers.push(loop);
+}
+
+async function browserMockRun(queue) {
+  let i = 0;
+  async function worker() {
+    while (i < queue.length && running) {
+      const e = queue[i++];
+      onEvent({ type: "start", id: e.id });
+      const ms = JevMock.mockLatency();
+      await new Promise((r) => timers.push(setTimeout(r, ms)));
+      if (!running) return;
+      onEvent({ type: "result", id: e.id, result: { ...JevMock.mockAnswer(e), latency_ms: Math.round(ms) } });
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(Number($("workers").value), queue.length) }, worker));
+  if (running) onEvent({ type: "done" });
+}
+
+let tick = null;
+function finish() {
+  if (!running) return;
+  clearInterval(tick);
+  stats.t1 = stats.t1 || performance.now();
+  stats.inflight = 0;
+  running = false;
+  $("start").firstElementChild.textContent = "Start";
+  $("status").textContent = stopFlag ? "Stopped" : "Done";
+  renderStats();
+}
+
+function showDetail(id) {
+  document.querySelectorAll("tr.sel").forEach((t) => t.classList.remove("sel"));
+  document.querySelector(`tr[data-id="${id}"]`).classList.add("sel");
+  const e = emails.find((x) => x.id === id);
+  const r = results[id];
+  $("detail").textContent = JSON.stringify({ state: { email: e }, answers: r ? r.answers || r : "not classified yet" }, null, 2);
+}
+
+function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+$("start").onclick = run;
+$("rows").onclick = (ev) => { const tr = ev.target.closest("tr"); if (tr) showDetail(Number(tr.dataset.id)); };
+$("reset").onclick = async () => { if (running) return; if (mode === "server") await fetch("/api/results", { method: "DELETE" }); results = {}; stats = freshStats(); render(); renderStats(); $("status").textContent = "Ready"; };
+$("newrun").onclick = () => { if (running) return; stats = freshStats(); renderStats(); $("status").textContent = "Ready"; };
+$("count").onchange = () => { if (!running) renderStats(); };
+init();
+</script>
+</body>
+</html>

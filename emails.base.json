@@ -1,0 +1,482 @@
+[
+  {
+    "id": 1,
+    "from": "Amazon.com",
+    "to": "me@exon.dev",
+    "subject": "Ordered: 4 Electronics items",
+    "sent_at": "2026-10-12T15:00:00.000Z",
+    "body": "Your order of USB-C hub, HDMI cable and 2 more items has been placed. Arriving Thursday."
+  },
+  {
+    "id": 2,
+    "from": "Google Maps Platform",
+    "to": "me@exon.dev",
+    "subject": "[Legal Update] Google Maps Platform Terms of Service update effective Nov 28, 2026",
+    "sent_at": "2026-10-12T14:23:00.000Z",
+    "body": "We are updating the Maps Platform terms. No action is required to continue using the service."
+  },
+  {
+    "id": 3,
+    "from": "Inbound reports",
+    "to": "me@exon.dev",
+    "subject": "Daily usage • 10/11/2026",
+    "sent_at": "2026-10-12T13:46:00.000Z",
+    "body": "Requests: 41,203. Errors: 0.2%. p95 latency 212ms. Full dashboard attached."
+  },
+  {
+    "id": 4,
+    "from": "TeslaNav Analytics",
+    "to": "me@exon.dev",
+    "subject": "TeslaNav daily analytics - 2026-10-11",
+    "sent_at": "2026-10-12T13:09:00.000Z",
+    "body": "Active users 3,412 (+4%). Sessions 9,880. Top route: Austin to Dallas."
+  },
+  {
+    "id": 5,
+    "from": "Mohammad Farzeen",
+    "to": "me@exon.dev",
+    "subject": "Re: you missed it",
+    "sent_at": "2026-10-12T12:32:00.000Z",
+    "body": "Hey, you missed the call yesterday. Can you let me know when you are free this week to catch up on the pilot?"
+  },
+  {
+    "id": 6,
+    "from": "Mercury",
+    "to": "me@exon.dev",
+    "subject": "Exon Enterprise LLC received $822.24 from STRIPE",
+    "sent_at": "2026-10-12T11:55:00.000Z",
+    "body": "A deposit of $822.24 from STRIPE has posted to your checking account ending 4410."
+  },
+  {
+    "id": 7,
+    "from": "OpenAI",
+    "to": "me@exon.dev",
+    "subject": "Review needed: safety identifier activity in your OpenAI account",
+    "sent_at": "2026-10-12T11:18:00.000Z",
+    "body": "We detected unusual activity tied to a safety identifier on your organization. Please review within 48 hours."
+  },
+  {
+    "id": 8,
+    "from": "Kickstartgogo",
+    "to": "me@exon.dev",
+    "subject": "A hand forged damascus knife | machete | for survival",
+    "sent_at": "2026-10-12T10:41:00.000Z",
+    "body": "Back the campaign today and get 40% off. Limited early bird slots left!"
+  },
+  {
+    "id": 9,
+    "from": "Amazon Business",
+    "to": "me@exon.dev",
+    "subject": "Use the slower season to simplify your books",
+    "sent_at": "2026-10-12T10:04:00.000Z",
+    "body": "Discover how Amazon Business analytics can help you reconcile spend. Learn more."
+  },
+  {
+    "id": 10,
+    "from": "Kickstarlaunch",
+    "to": "me@exon.dev",
+    "subject": "The future of electric hydrofoiling",
+    "sent_at": "2026-10-12T09:27:00.000Z",
+    "body": "Meet the Foil X, the quietest electric hydrofoil ever built. Pre-order now and save $500."
+  },
+  {
+    "id": 11,
+    "from": "Amazon Web Services",
+    "to": "me@exon.dev",
+    "subject": "Domain Verification REVOCATION CONFIRMATION for amysrealgrains.com in region US East (Ohio)",
+    "sent_at": "2026-10-12T08:50:00.000Z",
+    "body": "Verification for the domain has been revoked. Email sending from this domain will fail until it is re-verified."
+  },
+  {
+    "id": 12,
+    "from": "Amazon Web Services",
+    "to": "me@exon.dev",
+    "subject": "Amazon SES Custom MAIL FROM Domain Setup DISABLED in AWS Region US East (Ohio)",
+    "sent_at": "2026-10-12T08:13:00.000Z",
+    "body": "The custom MAIL FROM domain for your identity has been disabled because the MX record could not be found."
+  },
+  {
+    "id": 13,
+    "from": "TeslaNav",
+    "to": "me@exon.dev",
+    "subject": "[TeslaNav] New TeslaNav suggestion #90",
+    "sent_at": "2026-10-12T07:36:00.000Z",
+    "body": "A user suggested: add charger wait times to the route planner. Vote or comment in the board."
+  },
+  {
+    "id": 14,
+    "from": "noreply-spamdigest",
+    "to": "me@exon.dev",
+    "subject": "Moderator spam report for marketing@anomaly",
+    "sent_at": "2026-10-12T06:59:00.000Z",
+    "body": "12 messages were held for moderation in the marketing group this week."
+  },
+  {
+    "id": 15,
+    "from": "Piotr Kozak",
+    "to": "me@exon.dev",
+    "subject": "Re: you missed it",
+    "sent_at": "2026-10-12T06:22:00.000Z",
+    "body": "Sorry I missed you at the meetup. Are you still interested in speaking at the November event?"
+  },
+  {
+    "id": 16,
+    "from": "Displate Metal Posters",
+    "to": "me@exon.dev",
+    "subject": "Get in a weekend mood with up to 25% OFF!",
+    "sent_at": "2026-10-12T05:45:00.000Z",
+    "body": "Our weekend sale is live. Grab metal posters with up to 25% off through Sunday."
+  },
+  {
+    "id": 17,
+    "from": "PostHog",
+    "to": "me@exon.dev",
+    "subject": "What is new on PostHog?",
+    "sent_at": "2026-10-12T05:08:00.000Z",
+    "body": "This month: session replay for mobile, new SQL insights, and faster funnels."
+  },
+  {
+    "id": 18,
+    "from": "Ohsagie",
+    "to": "me@exon.dev",
+    "subject": "Re: IMPORTANT | october 21st rebase payout",
+    "sent_at": "2026-10-12T04:31:00.000Z",
+    "body": "Following up on the payout schedule. Can you confirm the wallet address before Friday?"
+  },
+  {
+    "id": 19,
+    "from": "purchase-noreply",
+    "to": "me@exon.dev",
+    "subject": "Your Subscription Will Be Renewing Soon",
+    "sent_at": "2026-10-12T03:54:00.000Z",
+    "body": "Your annual plan renews on Oct 20 for $96.00. No action is needed to keep your subscription."
+  },
+  {
+    "id": 20,
+    "from": "Calyx Institute",
+    "to": "me@exon.dev",
+    "subject": "Membership Renewal",
+    "sent_at": "2026-10-12T03:17:00.000Z",
+    "body": "Your membership expires in 3 days. Renew now to keep your hotspot service active."
+  },
+  {
+    "id": 21,
+    "from": "RayeeTech",
+    "to": "me@exon.dev",
+    "subject": "MandarinSD: free color card + factory pricing",
+    "sent_at": "2026-10-12T02:40:00.000Z",
+    "body": "Dear buyer, we are factory of LED panels. Send us your requirement for best price quotation."
+  },
+  {
+    "id": 22,
+    "from": "Henrik Schumacher",
+    "to": "me@exon.dev",
+    "subject": "Angenommen: rebase live trivia",
+    "sent_at": "2026-10-12T02:03:00.000Z",
+    "body": "Henrik Schumacher has accepted your invitation to Rebase live trivia, Thu 6pm."
+  },
+  {
+    "id": 23,
+    "from": "Account Team",
+    "to": "me@exon.dev",
+    "subject": "account violation possibility",
+    "sent_at": "2026-10-12T01:26:00.000Z",
+    "body": "Your account may be suspended. Verify your password at the link below within 24 hours to avoid closure."
+  },
+  {
+    "id": 24,
+    "from": "Stripe",
+    "to": "me@exon.dev",
+    "subject": "Your invoice from Vercel is available",
+    "sent_at": "2026-10-12T00:49:00.000Z",
+    "body": "Invoice #4821 for $240.00 has been paid with Visa ending 1188. Receipt attached."
+  },
+  {
+    "id": 25,
+    "from": "Sarah Lin",
+    "to": "me@exon.dev",
+    "subject": "Contract redlines for Thursday",
+    "sent_at": "2026-10-12T00:12:00.000Z",
+    "body": "Hi! Attached are the redlines from our legal team. Could you review section 4 before our Thursday call?"
+  },
+  {
+    "id": 26,
+    "from": "GitHub",
+    "to": "me@exon.dev",
+    "subject": "[exon/api] Run failed: deploy - main",
+    "sent_at": "2026-10-11T23:35:00.000Z",
+    "body": "The workflow run deploy failed on main. 1 failed job: build. View the logs to debug."
+  },
+  {
+    "id": 27,
+    "from": "Google",
+    "to": "me@exon.dev",
+    "subject": "Security alert: new sign-in on Mac",
+    "sent_at": "2026-10-11T22:58:00.000Z",
+    "body": "We noticed a new sign-in to your Google Account on a Mac device. If this was you, no action needed."
+  },
+  {
+    "id": 28,
+    "from": "Linear",
+    "to": "me@exon.dev",
+    "subject": "Weekly digest: 14 issues completed",
+    "sent_at": "2026-10-11T22:21:00.000Z",
+    "body": "Your team completed 14 issues and opened 9 this week. 3 issues are overdue."
+  },
+  {
+    "id": 29,
+    "from": "Figma",
+    "to": "me@exon.dev",
+    "subject": "Jordan mentioned you in Onboarding v3",
+    "sent_at": "2026-10-11T21:44:00.000Z",
+    "body": "Jordan: can you take a look at the empty state on frame 12 before we hand off?"
+  },
+  {
+    "id": 30,
+    "from": "Calendly",
+    "to": "me@exon.dev",
+    "subject": "New event: Intro call with Priya Raman",
+    "sent_at": "2026-10-11T21:07:00.000Z",
+    "body": "Priya Raman scheduled a 30 min intro call for Tue Oct 14 at 2:00pm."
+  },
+  {
+    "id": 31,
+    "from": "Lu.ma",
+    "to": "me@exon.dev",
+    "subject": "You are invited: AI Founders Dinner Austin",
+    "sent_at": "2026-10-11T20:30:00.000Z",
+    "body": "Join 40 founders for dinner on Oct 23. RSVP to save your seat."
+  },
+  {
+    "id": 32,
+    "from": "UPS",
+    "to": "me@exon.dev",
+    "subject": "Your package is out for delivery",
+    "sent_at": "2026-10-11T19:53:00.000Z",
+    "body": "Tracking 1Z999AA10123456784 is out for delivery and should arrive by 7pm."
+  },
+  {
+    "id": 33,
+    "from": "Uber Eats",
+    "to": "me@exon.dev",
+    "subject": "Your order from Torchys Tacos",
+    "sent_at": "2026-10-11T19:16:00.000Z",
+    "body": "Thanks for ordering. Total $23.18. Rate your order."
+  },
+  {
+    "id": 34,
+    "from": "Product Hunt",
+    "to": "me@exon.dev",
+    "subject": "Top products of the week",
+    "sent_at": "2026-10-11T18:39:00.000Z",
+    "body": "See the 10 most upvoted launches this week, including three new AI agents."
+  },
+  {
+    "id": 35,
+    "from": "Hacker Newsletter",
+    "to": "me@exon.dev",
+    "subject": "Hacker Newsletter #712",
+    "sent_at": "2026-10-11T18:02:00.000Z",
+    "body": "The best links from Hacker News this week, curated by hand."
+  },
+  {
+    "id": 36,
+    "from": "Reddit",
+    "to": "me@exon.dev",
+    "subject": "u/foilfan replied to your comment in r/hydrofoil",
+    "sent_at": "2026-10-11T17:25:00.000Z",
+    "body": "Great point about battery weight. Have you tried the 2kWh pack?"
+  },
+  {
+    "id": 37,
+    "from": "Discord",
+    "to": "me@exon.dev",
+    "subject": "You have 6 unread messages in Builders Club",
+    "sent_at": "2026-10-11T16:48:00.000Z",
+    "body": "Catch up on what you missed in #general and #launches."
+  },
+  {
+    "id": 38,
+    "from": "Twilio",
+    "to": "me@exon.dev",
+    "subject": "Action required: A2P 10DLC registration incomplete",
+    "sent_at": "2026-10-11T16:11:00.000Z",
+    "body": "Your brand registration is incomplete. Messages to US numbers may be blocked starting Oct 30."
+  },
+  {
+    "id": 39,
+    "from": "Cloudflare",
+    "to": "me@exon.dev",
+    "subject": "Your SSL certificate for app.exon.dev expires in 7 days",
+    "sent_at": "2026-10-11T15:34:00.000Z",
+    "body": "Auto renew failed due to a DNS validation error. Please check your CNAME records."
+  },
+  {
+    "id": 40,
+    "from": "Gusto",
+    "to": "me@exon.dev",
+    "subject": "Payroll processed for Oct 15",
+    "sent_at": "2026-10-11T14:57:00.000Z",
+    "body": "Payroll of $18,420.11 for 4 employees has been submitted and will be paid Oct 15."
+  },
+  {
+    "id": 41,
+    "from": "Chase",
+    "to": "me@exon.dev",
+    "subject": "Your statement is ready",
+    "sent_at": "2026-10-11T14:20:00.000Z",
+    "body": "Your Ink Business statement for September is available to view online."
+  },
+  {
+    "id": 42,
+    "from": "Brex",
+    "to": "me@exon.dev",
+    "subject": "Receipt missing for $129.00 at Notion",
+    "sent_at": "2026-10-11T13:43:00.000Z",
+    "body": "Upload a receipt for your recent card transaction to stay compliant."
+  },
+  {
+    "id": 43,
+    "from": "Daniel Park",
+    "to": "me@exon.dev",
+    "subject": "Quick question about the API pricing",
+    "sent_at": "2026-10-11T13:06:00.000Z",
+    "body": "Hey, our team is evaluating you vs. two others. Do you offer volume pricing above 10M calls a month?"
+  },
+  {
+    "id": 44,
+    "from": "Emily Chen",
+    "to": "me@exon.dev",
+    "subject": "Intro: Emily <> Marcus (seed investor)",
+    "sent_at": "2026-10-11T12:29:00.000Z",
+    "body": "Marcus, meet the founder I mentioned. I will let you two take it from here!"
+  },
+  {
+    "id": 45,
+    "from": "Marcus Webb",
+    "to": "me@exon.dev",
+    "subject": "Re: Intro: Emily <> Marcus (seed investor)",
+    "sent_at": "2026-10-11T11:52:00.000Z",
+    "body": "Thanks Emily. Would love to learn more, are you free for 20 minutes next Wednesday?"
+  },
+  {
+    "id": 46,
+    "from": "LinkedIn",
+    "to": "me@exon.dev",
+    "subject": "You appeared in 23 searches this week",
+    "sent_at": "2026-10-11T11:15:00.000Z",
+    "body": "See who is looking at your profile with Premium. Try free for 1 month."
+  },
+  {
+    "id": 47,
+    "from": "SEO Rankers",
+    "to": "me@exon.dev",
+    "subject": "Rank #1 on Google in 30 days guaranteed",
+    "sent_at": "2026-10-11T10:38:00.000Z",
+    "body": "We noticed your site is not ranking. Our team can fix that for only $199/month."
+  },
+  {
+    "id": 48,
+    "from": "Notion",
+    "to": "me@exon.dev",
+    "subject": "Your workspace trial ends in 3 days",
+    "sent_at": "2026-10-11T10:01:00.000Z",
+    "body": "Upgrade to Plus to keep unlimited blocks and version history."
+  },
+  {
+    "id": 49,
+    "from": "Vercel",
+    "to": "me@exon.dev",
+    "subject": "Deployment failed for exon-web",
+    "sent_at": "2026-10-11T09:24:00.000Z",
+    "body": "Build error in app/page.tsx: Type error on line 42. Production is still serving the previous deployment."
+  },
+  {
+    "id": 50,
+    "from": "Mom",
+    "to": "me@exon.dev",
+    "subject": "Thanksgiving plans?",
+    "sent_at": "2026-10-11T08:47:00.000Z",
+    "body": "Hi sweetie, are you coming home for Thanksgiving this year? Let me know so I can plan."
+  },
+  {
+    "id": 51,
+    "from": "Coinbase",
+    "to": "me@exon.dev",
+    "subject": "Verify your identity to continue",
+    "sent_at": "2026-10-11T08:10:00.000Z",
+    "body": "Complete identity verification to keep using your account. This takes about 2 minutes."
+  },
+  {
+    "id": 52,
+    "from": "Airbnb",
+    "to": "me@exon.dev",
+    "subject": "Reservation confirmed: Denver, Nov 7-10",
+    "sent_at": "2026-10-11T07:33:00.000Z",
+    "body": "Your stay is confirmed. Check in after 3pm. Message your host with any questions."
+  },
+  {
+    "id": 53,
+    "from": "Delta",
+    "to": "me@exon.dev",
+    "subject": "Check in for your flight to Denver",
+    "sent_at": "2026-10-11T06:56:00.000Z",
+    "body": "Your flight DL1123 departs tomorrow at 7:05am. Check in now to choose your seat."
+  },
+  {
+    "id": 54,
+    "from": "Zoom",
+    "to": "me@exon.dev",
+    "subject": "Cloud recording available: Weekly sync",
+    "sent_at": "2026-10-11T06:19:00.000Z",
+    "body": "The recording of Weekly sync is now available. It will be deleted in 30 days."
+  },
+  {
+    "id": 55,
+    "from": "Substack",
+    "to": "me@exon.dev",
+    "subject": "Lenny Rachitsky: How the best teams run planning",
+    "sent_at": "2026-10-11T05:42:00.000Z",
+    "body": "A new post from Lennys Newsletter is waiting for you."
+  },
+  {
+    "id": 56,
+    "from": "Mailchimp",
+    "to": "me@exon.dev",
+    "subject": "Your campaign October Launch was sent",
+    "sent_at": "2026-10-11T05:05:00.000Z",
+    "body": "Your campaign was delivered to 4,812 recipients. Opens and clicks will show soon."
+  },
+  {
+    "id": 57,
+    "from": "Intercom",
+    "to": "me@exon.dev",
+    "subject": "New conversation from Acme Corp",
+    "sent_at": "2026-10-11T04:28:00.000Z",
+    "body": "Acme Corp: our webhook is returning 500s since this morning, can someone help ASAP?"
+  },
+  {
+    "id": 58,
+    "from": "Alex Rivera",
+    "to": "me@exon.dev",
+    "subject": "Lunch Friday?",
+    "sent_at": "2026-10-11T03:51:00.000Z",
+    "body": "Are you around Friday for lunch? Thinking that new ramen place on 6th."
+  },
+  {
+    "id": 59,
+    "from": "Grammarly",
+    "to": "me@exon.dev",
+    "subject": "Your weekly writing stats",
+    "sent_at": "2026-10-11T03:14:00.000Z",
+    "body": "You were more productive than 92% of users this week."
+  },
+  {
+    "id": 60,
+    "from": "IRS e-Services",
+    "to": "me@exon.dev",
+    "subject": "Notice: Tax payment overdue",
+    "sent_at": "2026-10-11T02:37:00.000Z",
+    "body": "Your federal tax payment is overdue. Click here to pay with gift cards to avoid arrest."
+  }
+]
